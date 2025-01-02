@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Usage: ./cloud-init-template.sh <VM_ID> <STORAGE_POOL>
+# Usage: ./cloud-init-template-u2204.sh <VM_ID> <STORAGE_POOL>
 if [ "$#" -ne 2 ]; then
   echo "Usage: $0 <VM_ID> <STORAGE_POOL>"
-  echo "example: ./cloud-init-ubuntu-2204.sh 10000 local-lvm"
+  echo "example: ./cloud-init-template-u2204.sh 10000 local-lvm"
   exit 1
 fi
 

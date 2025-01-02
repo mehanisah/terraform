@@ -4,6 +4,9 @@
 This module provisions virtual machines (VMs) in Proxmox 8 using the Telmate/proxmox 3.0.1-rc4 provider. 
 It supports dynamic configuration of CPU, memory, disk, and networking.
 
+## How to create a cloud-init template
+$ ./cloud-init-template.sh {template_id} {storage_pool}
+
 ## How to Provision VM In Development Server
 
 $ terraform init
