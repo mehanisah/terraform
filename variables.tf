@@ -1,8 +1,8 @@
-variable "vault_server_ip" {
+variable "vault_server_host" {
   type = string
 }
 
-variable "proxmox_server_ip" {
+variable "proxmox_server_host" {
   type = string
 }
 
