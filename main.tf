@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "vault" {
-  address = "http://${var.vault_server_ip}:8200"
+  address = "http://${var.vault_server_host}:8200"
   skip_child_token = true
 
   auth_login {
@@ -29,7 +29,7 @@ data "vault_kv_secret_v2" "example" {
 }
 
 provider "proxmox" {
-  pm_api_url          = "https://${var.proxmox_server_ip}:8006/api2/json"
+  pm_api_url          = "https://${var.proxmox_server_host}:8006/api2/json"
   pm_api_token_id     = data.vault_kv_secret_v2.example.data["id"]
   pm_api_token_secret = data.vault_kv_secret_v2.example.data["secret"]
   pm_tls_insecure     = var.pm_tls_insecure
