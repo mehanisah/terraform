@@ -23,15 +23,15 @@ provider "vault" {
 
 # Read Vault secret
 # https://registry.terraform.io/browse/providers > choose 'Vault' > Documentation > Data Sources > vault_kv_secret_v2
-data "vault_kv_secret_v2" "example" {
+data "vault_kv_secret_v2" "api_token" {
   mount = "kv"
-  name  = "apitoken-terraform-${var.environment}" 
+  name  = "proxmox-${var.environment}" 
 }
 
 provider "proxmox" {
   pm_api_url          = "https://${var.proxmox_server_host}:8006/api2/json"
-  pm_api_token_id     = data.vault_kv_secret_v2.example.data["id"]
-  pm_api_token_secret = data.vault_kv_secret_v2.example.data["secret"]
+  pm_api_token_id     = data.vault_kv_secret_v2.api_token.data["id"]
+  pm_api_token_secret = data.vault_kv_secret_v2.api_token.data["secret"]
   pm_tls_insecure     = var.pm_tls_insecure
 }
 
