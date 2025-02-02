@@ -76,6 +76,7 @@ provisioner "remote-exec" {
         "sudo apt update",
         "sudo apt install -y docker-ce docker-ce-cli containerd.io",
         "sudo usermod -aG docker ansible"
+        "sudo apt install -y nfs-common"
     ]
 }
 
