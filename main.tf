@@ -10,6 +10,7 @@ terraform {
 provider "vault" {
   address = "https://${var.vault_server_host}:8200"
   skip_child_token = true
+  tls_skip_verify  = true
 
   auth_login {
     path = "auth/approle/login"
