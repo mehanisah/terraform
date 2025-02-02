@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "vault" {
-  address = "http://${var.vault_server_host}:8200"
+  address = "https://${var.vault_server_host}:8200"
   skip_child_token = true
 
   auth_login {
