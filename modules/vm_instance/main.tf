@@ -76,7 +76,7 @@ provisioner "remote-exec" {
     inline = [
         "sudo apt install openvswitch-switch -y",
         "sudo mv /tmp/01-netcfg.yaml /etc/netplan/01-netcfg.yaml",
-        "sudo chmod 644 /etc/netplan/01-netcfg.yaml",
+        "sudo chmod 600 /etc/netplan/01-netcfg.yaml",
         "sudo netplan apply",
         "sudo apt update",
         "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
