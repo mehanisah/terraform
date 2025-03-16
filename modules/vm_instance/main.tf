@@ -56,7 +56,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 
  # static ip address assignment increasing 
  ipconfig0 = "ip=${var.ipv4_address}/24,gw=${var.gateway}"
- nameserver = var.nameservers
+ nameserver = join(" ", var.nameservers) 
 
   connection {
     type = "ssh"
