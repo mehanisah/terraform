@@ -60,7 +60,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
     content = templatefile("${path.module}/templates/netplan.yaml.tpl", {
       ipv4_address = var.ipv4_address
       gateway      = var.gateway
-      nameservers  = join(", ", var.nameservers)  # Convert list to comma-separated string
     })
     destination = "/etc/netplan/01-netcfg.yaml"
   }
