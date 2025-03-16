@@ -77,6 +77,9 @@ provisioner "remote-exec" {
         "sudo apt install -y docker-ce docker-ce-cli containerd.io",
         "sudo usermod -aG docker ansible",
         "echo 'ansible ALL=(ALL) ALL' | sudo tee /etc/sudoers.d/ansible",
+        "sudo sed -i '/^\\[Resolve\\]/a DNS=${join(" ", var.nameservers)}' /etc/systemd/resolved.conf",
+        "sudo sed -i '/^\\[Resolve\\]/a FallbackDNS=8.8.8.8 8.8.4.4' /etc/systemd/resolved.conf",
+        "sudo systemctl restart systemd-resolved"
     ]
 }
 
