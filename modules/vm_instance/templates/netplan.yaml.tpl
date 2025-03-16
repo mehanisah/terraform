@@ -8,5 +8,4 @@ network:
         - ${ipv4_address}/24
       gateway4: ${gateway}
       nameservers:
-        addresses:
-          - [43.74.1.31, 146.215.29.37, 146.215.29.38]
+        addresses: [43.74.1.31, 146.215.29.37, 146.215.29.38]
