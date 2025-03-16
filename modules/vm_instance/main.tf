@@ -61,7 +61,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
       ipv4_address = var.ipv4_address
       gateway      = var.gateway
     })
-    destination = "/etc/netplan/01-netcfg.yaml"
+    destination = "/tmp/01-netcfg.yaml"
   }
 
   connection {
@@ -75,6 +75,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 provisioner "remote-exec" {
     inline = [
         "sudo apt install openvswitch-switch -y",
+        "sudo mv /tmp/01-netcfg.yaml /etc/netplan/01-netcfg.yaml",
+        "sudo chmod 644 /etc/netplan/01-netcfg.yaml",
         "sudo netplan apply",
         "sudo apt update",
         "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
