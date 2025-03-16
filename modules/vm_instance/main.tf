@@ -54,9 +54,16 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 
   onboot = true
 
- # static ip address assignment increasing 
- ipconfig0 = "ip=${var.ipv4_address}/24,gw=${var.gateway}"
- nameserver = join(" ", var.nameservers) 
+  ipconfig0 = "ip=${var.ipv4_address}/24,gw=${var.gateway}"
+
+  provisioner "file" {
+    content = templatefile("${path.module}/templates/netplan.yaml.tpl", {
+      ipv4_address = var.ipv4_address
+      gateway      = var.gateway
+      nameservers  = join(", ", var.nameservers)  # Convert list to comma-separated string
+    })
+    destination = "/etc/netplan/01-netcfg.yaml"
+  }
 
   connection {
     type = "ssh"
@@ -69,7 +76,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 provisioner "remote-exec" {
     inline = [
         "sudo apt install openvswitch-switch -y",
-        "sudo mv /etc/netplan/50-cloud-init.yaml /etc/netplan/01-netcfg.yaml",
         "sudo netplan apply",
         "sudo apt update",
         "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
