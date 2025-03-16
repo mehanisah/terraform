@@ -62,7 +62,6 @@ variable "gateway" {
 variable "nameservers" {
   description = "List of DNS servers"
   type        = list(string)
-  default     = ["160.33.96.81", "146.215.29.37", "146.215.29.38"]
 }
 
 variable "ansible_password" {
