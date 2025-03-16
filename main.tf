@@ -49,7 +49,6 @@ module "vm_instance" {
   net_bridge = var.net_bridge
   ipv4_address = var.ip_address
   gateway = var.gateway
-  nameservers = var.nameservers
   ansible_password = var.ansible_password
 }
 
