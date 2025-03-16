@@ -69,6 +69,11 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 provisioner "remote-exec" {
     inline = [
         "sudo mv /etc/netplan/50-cloud-init.yaml /etc/netplan/01-netcfg.yaml",
+        "sudo netplan apply",
+        "echo '[Resolve]' | sudo tee -a /etc/systemd/resolved.conf",
+        "sudo sed -i '/^\\[Resolve\\]/a DNS=160.33.96.81 146.215.29.37 146.215.29.38' /etc/systemd/resolved.conf",
+        "sudo sed -i '/^\\[Resolve\\]/a FallbackDNS=8.8.8.8 8.8.4.4' /etc/systemd/resolved.conf",
+        "sudo systemctl restart systemd-resolved"
         "sudo apt update",
         "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
         "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
@@ -76,11 +81,7 @@ provisioner "remote-exec" {
         "sudo apt update",
         "sudo apt install -y docker-ce docker-ce-cli containerd.io",
         "sudo usermod -aG docker ansible",
-        "echo 'ansible ALL=(ALL) ALL' | sudo tee /etc/sudoers.d/ansible",
-        "echo '[Resolve]' | sudo tee -a /etc/systemd/resolved.conf",
-        "echo 'DNS=${join(" ", var.nameservers)}' | sudo tee -a /etc/systemd/resolved.conf",
-        "echo 'FallbackDNS=8.8.8.8 8.8.4.4' | sudo tee -a /etc/systemd/resolved.conf",
-        "sudo systemctl restart systemd-resolved"
+        "echo 'ansible ALL=(ALL) ALL' | sudo tee /etc/sudoers.d/ansible"
     ]
 }
 
