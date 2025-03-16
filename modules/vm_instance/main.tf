@@ -68,6 +68,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 
 provisioner "remote-exec" {
     inline = [
+        "sudo apt install openvswitch-switch -y",
         "sudo mv /etc/netplan/50-cloud-init.yaml /etc/netplan/01-netcfg.yaml",
         "sudo netplan apply",
         "echo '[Resolve]' | sudo tee -a /etc/systemd/resolved.conf",
