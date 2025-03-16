@@ -64,10 +64,6 @@ variable "gateway" {
   type = string
 }
 
-variable "nameservers" {
-  type = string
-}
-
 variable "ansible_password" {
   type = string
 }
