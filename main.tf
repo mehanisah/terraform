@@ -15,8 +15,8 @@ provider "vault" {
     path = "auth/approle/login"
 
     parameters = {
-      role_id = "${var.proxmox_role_id}"
-      secret_id = "${var.proxmox_secret_id}"
+      role_id = "${var.vault_terraform_role_id}"
+      secret_id = "${var.vault_terraform_secret_id}"
     }
   }
 }
