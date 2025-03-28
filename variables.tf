@@ -2,11 +2,11 @@ variable "vault_server_host" {
   type = string
 }
 
-variable "vault_proxmox_role_id" {
+variable "vault_terraform_role_id" {
   type = string
 }
 
-variable "vault_proxmox_secret_id" {
+variable "vault_terraform_secret_id" {
   type = string
 }
 
