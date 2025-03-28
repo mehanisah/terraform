@@ -15,8 +15,8 @@ provider "vault" {
     path = "auth/approle/login"
 
     parameters = {
-      role_id = "a43a1277-d232-51d7-6896-97ec876c7137"
-      secret_id = "ee3bd476-e19d-6dfc-b4e2-b172b709774a"
+      role_id = "${var.proxmox_role_id}"
+      secret_id = "${var.proxmox_secret_id}"
     }
   }
 }
