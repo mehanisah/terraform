@@ -74,7 +74,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 
 provisioner "remote-exec" {
     inline = [
-        "sudo apt install openvswitch-switch -y",
         "sudo mv /tmp/01-netcfg.yaml /etc/netplan/01-netcfg.yaml",
         "sudo chmod 600 /etc/netplan/01-netcfg.yaml",
         "sudo netplan apply",
