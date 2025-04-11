@@ -90,11 +90,11 @@ provisioner "remote-exec" {
     "sudo timedatectl set-timezone Asia/Kuala_Lumpur",
     "sudo timedatectl set-ntp true",
     "echo -e '[Time]\\nNTP=146.215.123.195\\nFallbackNTP=146.215.88.83' | sudo tee /etc/systemd/timesyncd.conf > /dev/null",
-    "sudo systemctl restart systemd-timesyncd"
+    "sudo systemctl restart systemd-timesyncd",
 
     # Add ansible user to docker group and sudoers
     "sudo usermod -aG docker ansible",
-    "echo 'ansible ALL=(ALL) ALL' | sudo tee /etc/sudoers.d/ansible",
+    "echo 'ansible ALL=(ALL) ALL' | sudo tee /etc/sudoers.d/ansible"
     ]
 }
 
