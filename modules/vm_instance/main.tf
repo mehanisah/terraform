@@ -74,17 +74,27 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT/Q/Vm4JoGRz9aQhJOoVXy+4QXXDxEK5pR2xfFpp1
 
 provisioner "remote-exec" {
     inline = [
-        "sudo mv /tmp/01-netcfg.yaml /etc/netplan/01-netcfg.yaml",
-        "sudo chmod 600 /etc/netplan/01-netcfg.yaml",
-        "sudo netplan apply",
-        "sudo apt update",
-        "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common nfs-common jq curl",
-        "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
-        "echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
-        "sudo apt update",
-        "sudo apt install -y docker-ce docker-ce-cli containerd.io",
-        "sudo usermod -aG docker ansible",
-        "echo 'ansible ALL=(ALL) ALL' | sudo tee /etc/sudoers.d/ansible"
+    "sudo mv /tmp/01-netcfg.yaml /etc/netplan/01-netcfg.yaml",
+    "sudo chmod 600 /etc/netplan/01-netcfg.yaml",
+    "sudo netplan apply",
+    "sudo apt update",
+    "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common nfs-common jq curl",
+
+    # Docker install
+    "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
+    "echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+    "sudo apt update",
+    "sudo apt install -y docker-ce docker-ce-cli containerd.io",
+
+    # Add ansible user to docker group and sudoers
+    "sudo usermod -aG docker ansible",
+    "echo 'ansible ALL=(ALL) ALL' | sudo tee /etc/sudoers.d/ansible",
+
+    # Timezone & NTP setup
+    "sudo timedatectl set-timezone Asia/Kuala_Lumpur",
+    "sudo timedatectl set-ntp true",
+    "echo -e '[Time]\\nNTP=146.215.123.195\\nFallbackNTP=146.215.88.83' | sudo tee /etc/systemd/timesyncd.conf > /dev/null",
+    "sudo systemctl restart systemd-timesyncd"
     ]
 }
 
